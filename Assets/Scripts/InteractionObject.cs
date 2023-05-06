@@ -51,7 +51,7 @@ public class InteractionObject : MonoBehaviour
     {
         //infoUI = GameObject.Find("InfoUI");
         //infoText = GameObject.Find("InfoText").GetComponent<TMP_Text>();
-        playerScript = GameObject.Find("Player").GetComponent<PlayerInventory>();
+        playerScript = GameObject.Find("PlayerArmature").GetComponent<PlayerInventory>();
         dialogueManager = GameObject.Find("DialogueManager").GetComponent<DialogueManager>();
     }
 
@@ -69,8 +69,9 @@ public class InteractionObject : MonoBehaviour
 
     public void Pickup()
     {
-        //playerScript.inventory.Add(item);
-        //Debug.Log("You picked up " + this.gameObject.name);
+        playerScript.inventory.Add(item);   
+        Debug.Log("You picked up " /*+ this.gameObject.name*/);
+        FindObjectOfType<InfoManager>().ShowInfo(infoMessage);
         this.gameObject.SetActive(false);
     }
 
@@ -85,7 +86,7 @@ public class InteractionObject : MonoBehaviour
         {
             FindObjectOfType<DialogueManager>().StartDialogue(pendingDialogue);
         }
-        if (gotItemTest)
+        if (playerScript.inventory.Contains(item))
         {
             if (questDone)
             {
