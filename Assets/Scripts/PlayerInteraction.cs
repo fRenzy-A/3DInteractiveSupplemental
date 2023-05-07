@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerInteraction : MonoBehaviour
 {
     [SerializeField]
-    private GameObject currentInterObj = null;
+    public GameObject currentInterObj = null;
 
     public InteractionObject currentInterObjScript = null;
 
