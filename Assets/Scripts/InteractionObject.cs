@@ -23,7 +23,7 @@ public class InteractionObject : MonoBehaviour
     public string item;
     [Header("Item to give directly")]
     public bool willIGiveItemDirectly;
-    public string giveItemDirectly;
+    public string giveItem;
 
     [Header("Simple info Message")]
     public string infoMessage;
@@ -47,6 +47,8 @@ public class InteractionObject : MonoBehaviour
     public bool nowTalked;
     public bool gotItemTest;
     public bool questDone;
+
+    public GameObject activateThisItem;
 
     public PlayerInventory playerScript;
     public PlayerInteraction playerInteraction;
@@ -94,21 +96,27 @@ public class InteractionObject : MonoBehaviour
         {
             FindObjectOfType<DialogueManager>().StartDialogue(pendingDialogue);
         }
+        if (questDone)
+        {
+            FindObjectOfType<DialogueManager>().StartDialogue(epilogueDialogue);
+            //Debug.Log(playerScript.inventory.Count);
+        }
         if (playerScript.inventory.Contains(item))
         {
-            if (questDone)
+
+            FindObjectOfType<DialogueManager>().StartDialogue(ifQuestDoneDialogue);
+            if (willIGiveItemDirectly)
             {
-                FindObjectOfType<DialogueManager>().StartDialogue(epilogueDialogue);
-                Debug.Log(playerScript.inventory.Count);
+                playerScript.inventory.Add(giveItem);
             }
             else
             {
-                FindObjectOfType<DialogueManager>().StartDialogue(ifQuestDoneDialogue);
-                playerScript.inventory.Add(giveItemDirectly);
-                
-                questDone = true;
-                playerScript.inventory.Remove(item);
-            }        
+                activateThisItem.SetActive(true);
+            }
+
+
+            questDone = true;
+            playerScript.inventory.Remove(item);       
         }
         /*if (playerScript.inventory.Contains(item))
         {
@@ -125,7 +133,7 @@ public class InteractionObject : MonoBehaviour
         {
            
         }*/
-        
+
     }
 
     
