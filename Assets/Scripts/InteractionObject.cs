@@ -70,8 +70,6 @@ public class InteractionObject : MonoBehaviour
 
     public void Info()
     {
-        //infoUI.SetActive(true);
-        //StartCoroutine(ShowInfo(infoMessage, 3.5f));
         FindObjectOfType<InfoManager>().ShowInfo(infoMessage);
     }
 

@@ -130,6 +130,7 @@ namespace StarterAssets
             {
                 _mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
             }
+            Cursor.visible = false;
         }
 
         private void Start()
