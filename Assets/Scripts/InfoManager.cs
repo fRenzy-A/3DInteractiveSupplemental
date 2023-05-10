@@ -24,7 +24,7 @@ public class InfoManager : MonoBehaviour
         infoUI.SetActive(true);
         StartCoroutine(ShowInfo(sentences, 3.5f));
         
-        //infoText.text=sentences;
+       
 
     }
 

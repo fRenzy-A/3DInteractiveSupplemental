@@ -56,8 +56,6 @@ public class InteractionObject : MonoBehaviour
     public GameObject infoUI;
     public void Start()
     {
-        //infoUI = GameObject.Find("InfoUI");
-        //infoText = GameObject.Find("InfoText").GetComponent<TMP_Text>();
         playerScript = GameObject.Find("PlayerArmature").GetComponent<PlayerInventory>();
         playerInteraction = GameObject.Find("PlayerArmature").GetComponent<PlayerInteraction>();
         dialogueManager = GameObject.Find("DialogueManager").GetComponent<DialogueManager>();
@@ -80,29 +78,27 @@ public class InteractionObject : MonoBehaviour
         this.gameObject.SetActive(false);
         playerInteraction.currentInterObjScript = null;
         playerInteraction.currentInterObj = null;
-        Debug.Log("You picked up " /*+ this.gameObject.name*/);
     }
 
     public void Dialogue()
     {
         if (!nowTalked)
         {
-            FindObjectOfType<DialogueManager>().StartDialogue(firstTimeDialogue);
+            FindObjectOfType<DialogueManager>().StartDialogue(firstTimeDialogue,gameObject.name);
             nowTalked = true;
         }
         else
         {
-            FindObjectOfType<DialogueManager>().StartDialogue(pendingDialogue);
+            FindObjectOfType<DialogueManager>().StartDialogue(pendingDialogue, gameObject.name);
         }
         if (questDone)
         {
-            FindObjectOfType<DialogueManager>().StartDialogue(epilogueDialogue);
-            //Debug.Log(playerScript.inventory.Count);
+            FindObjectOfType<DialogueManager>().StartDialogue(epilogueDialogue, gameObject.name);
         }
         if (playerScript.inventory.Contains(item))
         {
 
-            FindObjectOfType<DialogueManager>().StartDialogue(ifQuestDoneDialogue);
+            FindObjectOfType<DialogueManager>().StartDialogue(ifQuestDoneDialogue, gameObject.name);
             if (willIGiveItemDirectly)
             {
                 playerScript.inventory.Add(giveItem);
@@ -116,21 +112,7 @@ public class InteractionObject : MonoBehaviour
             questDone = true;
             playerScript.inventory.Remove(item);       
         }
-        /*if (playerScript.inventory.Contains(item))
-        {
-            FindObjectOfType<DialogueManager>().StartDialogue(whenQuestIsDoneDialogue);
-            if (willIDisappear)
-            {
-                if (dialogueManager.dialogue.Count == 0)
-                {
-                    this.gameObject.SetActive(false);
-                }               
-            }
-        }
-        else
-        {
-           
-        }*/
+
 
     }
 

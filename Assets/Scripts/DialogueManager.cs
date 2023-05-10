@@ -10,6 +10,7 @@ public class DialogueManager : MonoBehaviour
     public TMP_Text dialogueText;
     public GameObject player;
     public Animator animator;
+    public TMP_Text dialogueName;
 
     public Queue<string> dialogue;
 
@@ -19,10 +20,14 @@ public class DialogueManager : MonoBehaviour
         dialogue = new Queue<string>();
     }
 
-    public void StartDialogue(string[] sentences)
+    public void StartDialogue(string[] sentences, string nameOfNPC)
     {
         dialogue.Clear();
         dialogueUI.SetActive(true);
+
+        dialogueName = GameObject.Find("NameOfNPC").GetComponent<TMP_Text>();
+
+        dialogueName.text = nameOfNPC;
 
         SuspendPlayerControl();
 
@@ -41,12 +46,12 @@ public class DialogueManager : MonoBehaviour
         player.GetComponent<PlayerInteraction>().enabled = false;
 
         animator.SetFloat("Speed", 0);
-        //player.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+        
     }
 
     public void DisplayNextSentence()
     {
-        //Debug.Log("Dialogue count " + dialogue.Count);
+   
         if (dialogue.Count == 0)
         {
             EndDialogue();

@@ -9,6 +9,8 @@ public class PlayerInteraction : MonoBehaviour
 
     public InteractionObject currentInterObjScript = null;
 
+    public GameObject interactPrompt;
+
 
     void Update()
     {
@@ -46,6 +48,7 @@ public class PlayerInteraction : MonoBehaviour
         {
             currentInterObj = other.gameObject;
             currentInterObjScript = currentInterObj.GetComponent<InteractionObject>();
+            interactPrompt.SetActive(true);
         }
     }
     void OnTriggerExit(Collider other)
@@ -54,6 +57,7 @@ public class PlayerInteraction : MonoBehaviour
         {
             currentInterObj = null;
             currentInterObjScript = null;
+            interactPrompt.SetActive(false);
         }
     }
 }
